@@ -1,0 +1,400 @@
+{% extends "base.html" %}
+{% block title %}Update{% endblock %}
+
+{% block header %}
+
+    <div class="header_modal">
+        <div class="header_right">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+
+                {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+                {% endif %}
+        </div>
+    </div>
+
+    <div class="burger_btn">
+        <span class="bar bar_top"></span>
+        <span class="bar bar_mid"></span>
+        <span class="bar bar_bottom"></span>
+    </div>
+
+    <div class="judge_modal">
+        <div class="destroy_judge">
+            <h2>確認画面</h2>
+            <p>本当に削除してもよろしいでしょうか？</p>
+            <div class="judge_btn">
+                <p class="close_modal">いいえ</p>
+                <a href="/{{store.id}}/destroy">はい</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+    {% if request.method == 'GET' %}
+
+    <div class="create">
+        <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
+        <div class="create_wrapper">
+            <h1 class="create_title">Update</h1>
+            <div class="container">
+                <form action="" enctype="multipart/form-data" method="POST" class="create_form">
+
+                    <label for="name">＊必須:店舗名</label>
+                    <input type="text" name="name" class="form-control" value="{{ store.name }}">
+
+                    <label for="industry">＊必須:業種</label>
+                    <select name="industry" id="" class="form-select form-select-sm">
+                        <option value="ラウンジ" {% if "ラウンジ" in store.industry %}selected{% endif %}>ラウンジ</option>
+                        <option value="朝キャバ" {% if "朝キャバ" in store.industry %}selected{% endif %}>朝キャバ</option>
+                        <option value="キャバクラ" {% if "キャバクラ" in store.industry %}selected{% endif %}>キャバクラ</option>
+                        <option value="セクキャバ" {% if "セクキャバ" in store.industry %}selected{% endif %}>セクキャバ</option>
+                        <option value="メンズエステ" {% if "メンズエステ" in store.industry %}selected{% endif %}>メンズエステ</option>
+                        <option value="回春エステ" {% if "回春エステ" in store.industry %}selected{% endif %}>回春エステ</option>
+                        <option value="オナクラ" {% if "オナクラ" in store.industry %}selected{% endif %}>オナクラ</option>
+                        <option value="ピンサロ" {% if "ピンサロ" in store.industry %}selected{% endif %}>ピンサロ</option>
+                        <option value="店舗型ヘルス" {% if "店舗型ヘルス" in store.industry %}selected{% endif %}>店舗型ヘルス</option>
+                        <option value="ホテヘル" {% if "ホテヘル" in store.industry %}selected{% endif %}>ホテヘル</option>
+                        <option value="デリヘル" {% if "デリヘル" in store.industry %}selected{% endif %}>デリヘル</option>
+                        <option value="ソープ" {% if "ソープ" in store.industry %}selected{% endif %}>ソープ</option>
+                    </select>
+
+                    <label for="rank">＊必須:ランク</label>
+                    <select name="rank" id="" class="form-select form-select-sm">
+                        <option value="1" {% if "1" in store.rank %}selected{% endif %}>1</option>
+                        <option value="2" {% if "2" in store.rank %}selected{% endif %}>2</option>
+                        <option value="3" {% if "3" in store.rank %}selected{% endif %}>3</option>
+                        <option value="4" {% if "4" in store.rank %}selected{% endif %}>4</option>
+                        <option value="5" {% if "5" in store.rank %}selected{% endif %}>5</option>
+                        <option value="6" {% if "6" in store.rank %}selected{% endif %}>6</option>
+                    </select>
+
+                    <label for="pref">＊必須：エリア（複数可）</label>
+                    <select name="pref" id="" multiple class="form-select form-select-sm" selected>
+                        <option value="北海道" {% if "北海道" in store.pref %}selected{% endif %}>北海道</option>
+                        <option value="青森県" {% if "青森県" in store.pref %}selected{% endif %}>青森県</option>
+                        <option value="岩手県" {% if "岩手県" in store.pref %}selected{% endif %}>岩手県</option>
+                        <option value="宮城県" {% if "宮城県" in store.pref %}selected{% endif %}>宮城県</option>
+                        <option value="秋田県" {% if "秋田県" in store.pref %}selected{% endif %}>秋田県</option>
+                        <option value="山形県" {% if "山形県" in store.pref %}selected{% endif %}>山形県</option>
+                        <option value="福島県" {% if "福島県" in store.pref %}selected{% endif %}>福島県</option>
+                        <option value="茨城県" {% if "茨城県" in store.pref %}selected{% endif %}>茨城県</option>
+                        <option value="栃木県" {% if "栃木県" in store.pref %}selected{% endif %}>栃木県</option>
+                        <option value="群馬県" {% if "群馬県" in store.pref %}selected{% endif %}>群馬県</option>
+                        <option value="埼玉県" {% if "埼玉県" in store.pref %}selected{% endif %}>埼玉県</option>
+                        <option value="千葉県" {% if "千葉県" in store.pref %}selected{% endif %}>千葉県</option>
+                        <option value="東京都" {% if "東京都" in store.pref %}selected{% endif %}>東京都</option>
+                        <option value="神奈川県" {% if "神奈川県" in store.pref %}selected{% endif %}>神奈川県</option>
+                        <option value="新潟県" {% if "新潟県" in store.pref %}selected{% endif %}>新潟県</option>
+                        <option value="富山県" {% if "富山県" in store.pref %}selected{% endif %}>富山県</option>
+                        <option value="石川県" {% if "石川県" in store.pref %}selected{% endif %}>石川県</option>
+                        <option value="福井県" {% if "福井県" in store.pref %}selected{% endif %}>福井県</option>
+                        <option value="山梨県" {% if "山梨県" in store.pref %}selected{% endif %}>山梨県</option>
+                        <option value="長野県" {% if "長野県" in store.pref %}selected{% endif %}>長野県</option>
+                        <option value="岐阜県" {% if "岐阜県" in store.pref %}selected{% endif %}>岐阜県</option>
+                        <option value="静岡県" {% if "静岡県" in store.pref %}selected{% endif %}>静岡県</option>
+                        <option value="愛知県" {% if "愛知県" in store.pref %}selected{% endif %}>愛知県</option>
+                        <option value="三重県" {% if "三重県" in store.pref %}selected{% endif %}>三重県</option>
+                        <option value="滋賀県" {% if "滋賀県" in store.pref %}selected{% endif %}>滋賀県</option>
+                        <option value="京都府" {% if "京都府" in store.pref %}selected{% endif %}>京都府</option>
+                        <option value="大阪府" {% if "大阪府" in store.pref %}selected{% endif %}>大阪府</option>
+                        <option value="兵庫県" {% if "兵庫県" in store.pref %}selected{% endif %}>兵庫県</option>
+                        <option value="奈良県" {% if "奈良県" in store.pref %}selected{% endif %}>奈良県</option>
+                        <option value="和歌山県" {% if "和歌山県" in store.pref %}selected{% endif %}>和歌山県</option>
+                        <option value="鳥取県" {% if "鳥取県" in store.pref %}selected{% endif %}>鳥取県</option>
+                        <option value="島根県" {% if "島根県" in store.pref %}selected{% endif %}>島根県</option>
+                        <option value="岡山県" {% if "岡山県" in store.pref %}selected{% endif %}>岡山県</option>
+                        <option value="広島県" {% if "広島県" in store.pref %}selected{% endif %}>広島県</option>
+                        <option value="山口県" {% if "山口県" in store.pref %}selected{% endif %}>山口県</option>
+                        <option value="徳島県" {% if "徳島県" in store.pref %}selected{% endif %}>徳島県</option>
+                        <option value="香川県" {% if "香川県" in store.pref %}selected{% endif %}>香川県</option>
+                        <option value="愛媛県" {% if "愛媛県" in store.pref %}selected{% endif %}>愛媛県</option>
+                        <option value="高知県" {% if "高知県" in store.pref %}selected{% endif %}>高知県</option>
+                        <option value="福岡県" {% if "福岡県" in store.pref %}selected{% endif %}>福岡県</option>
+                        <option value="佐賀県" {% if "佐賀県" in store.pref %}selected{% endif %}>佐賀県</option>
+                        <option value="長崎県" {% if "長崎県" in store.pref %}selected{% endif %}>長崎県</option>
+                        <option value="熊本県" {% if "熊本県" in store.pref %}selected{% endif %}>熊本県</option>
+                        <option value="大分県" {% if "大分県" in store.pref %}selected{% endif %}>大分県</option>
+                        <option value="宮城県" {% if "宮崎県" in store.pref %}selected{% endif %}>宮城県</option>
+                        <option value="鹿児島県" {% if "鹿児島県" in store.pref %}selected{% endif %}>鹿児島県</option>
+                        <option value="沖縄県" {% if "沖縄県" in store.pref %}selected{% endif %}>沖縄県</option>
+                    </select>
+
+                    <label for="area">細かいエリア</label>
+                    <input type="text" name="area" placeholder="梅田etc" class="form-control" value="{{ store.area }}">
+
+                    <label for="store_area">店舗エリア</label>
+                    <input type="text" name="store_area" placeholder="梅田店、難波店etc" class="form-control" value="{{ store.store_area }}">
+
+                    <label for="station">最寄り駅</label>
+                    <input type="text" name="station" class="form-control" value="{{ store.station }}">
+
+                    <label for="time">営業時間</label>
+                    <input type="text" name="time" placeholder="00:00~00:00" class="form-control" value="{{ store.time }}">
+
+                    <label for="concept">コンセプト(複数可)</label>
+                    <select name="concept" id="" multiple class="form-select form-select-sm">
+                        <option value="ロリ系" {% if "ロリ系" in store.concept %}selected{% endif %}>ロリ系</option>
+                        <option value="大人系" {% if "大人系" in store.concept %}selected{% endif %}>大人系</option>
+                        <option value="ぽっちゃり系" {% if "ぽっちゃり系" in store.concept %}selected{% endif %}>ぽっちゃり系</option>
+                        <option value="ギャル系" {% if "ギャル系" in store.concept %}selected{% endif %}>ギャル系</option>
+                        <option value="清楚系" {% if "清楚系" in store.concept %}selected{% endif %}>清楚系</option>
+                        <option value="素人系" {% if "素人系" in store.concept %}selected{% endif %}>素人系</option>
+                        <option value="人妻系" {% if "人妻系" in store.concept %}selected{% endif %}>人妻系</option>
+                    </select>
+
+                    <label for="age">採用年齢</label>
+                    <input type="text" name="age" placeholder="0歳~0歳" class="form-control" value="{{ store.age }}">
+
+                    <label for="salary">女子給</label>
+                    <textarea name="salary" id="" cols="30" rows="10" class="form-control">{{ store.salary }}</textarea>
+
+                    <label for="nomination">指名料</label>
+                    <input type="text" name="nomination" placeholder="指名料を入力してください" class="form-control" value="{{ store.nomination }}">
+
+                    <label for="guarantee">保証幅</label>
+                    <input type="text" name="guarantee" placeholder="保証幅を入力してください" class="form-control" value="{{ store.guarantee }}">
+
+                    <label for="face">顔出し</label>
+                    <select name="face" id="" class="form-select form-select-sm">
+                        <option value="有" {% if "有" in store.face %}selected{% endif %}>有</option>
+                        <option value="無" {% if "無" in store.face %}selected{% endif %}>無</option>
+                        <option value="目出し" {% if "目出し" in store.face %}selected{% endif %}>目出し</option>
+                        <option value="口出し" {% if "口出し" in store.face %}selected{% endif %}>口出し</option>
+                    </select>
+
+                    <label for="dormitory">寮費</label>
+                    <input type="text" name="dormitory" placeholder="寮費を入力してください" class="form-control" value="{{ store.dormitory }}">
+
+                    <label for="sundry">雑費</label>
+                    <input type="text" name="sundry" placeholder="雑費を入力してください" class="form-control" value="{{ store.sundry }}">
+
+                    <label for="back">SB</label>
+                    <input type="text" name="back" placeholder="スカウトバックを入力してください" class="form-control" value="{{ store.back }}">
+                    
+                    <label for="remark">備考</label>
+                    <textarea name="remark" id="" cols="30" rows="10" class="form-control">{{ store.remark }}</textarea>
+
+                    <label for="store_tag">特徴(複数可)</label>
+                    <select name="store_tag" id="" multiple class="form-select form-select-sm">
+                        <option value="おすすめ" {% if "おすすめ" in store.store_tag %}selected{% endif %}>おすすめ</option>
+                        <option value="送迎有" {% if "送迎有" in store.store_tag %}selected{% endif %}>送迎有</option>
+                        <option value="出稼ぎ対応可" {% if "出稼ぎ対応可" in store.store_tag %}selected{% endif %}>出稼ぎ対応可</option>
+                        <option value="マット無し対応可" {% if "マット無し対応可" in store.store_tag %}selected{% endif %}>マット無し対応可</option>
+                        <option value="S着" {% if "S着" in store.store_tag %}selected{% endif %}>S着</option>
+                        <option value="NS" {% if "NS" in store.store_tag %}selected{% endif %}>NS</option>
+                        <option value="混合店" {% if "混合店" in store.store_tag %}selected{% endif %}>混合店</option>
+                        <option value="採用幅広い" {% if "採用幅広い" in store.store_tag %}selected{% endif %}>採用幅広い</option>
+                        <option value="30代OK" {% if "30代OK" in store.store_tag %}selected{% endif %}>30代OK</option>
+                        <option value="40代OK" {% if "40代OK" in store.store_tag %}selected{% endif %}>40代OK</option>
+                        <option value="タトゥー対応可" {% if "タトゥー対応可" in store.store_tag %}selected{% endif %}>タトゥー対応可</option>
+                    </select>
+
+                    <input type="submit" value="追加" class="btn btn-dark">
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+        <div class="create">
+            <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
+            <div class="create_wrapper">
+                <h1 class="create_title">Update</h1>
+                <p class="err_msg">{{ err_msg }}</p>
+                <div class="container">
+                    <form action="" enctype="multipart/form-data" method="POST" class="create_form">
+
+                        <label for="name">＊必須:店舗名</label>
+                        <input type="text" name="name" class="form-control" value="{{ store.name }}">
+
+                        <label for="industry">＊必須:業種</label>
+                        <select name="industry" id="" class="form-select form-select-sm">
+                            <option value="ラウンジ" {% if "ラウンジ" in store.industry %}selected{% endif %}>ラウンジ</option>
+                            <option value="朝キャバ" {% if "朝キャバ" in store.industry %}selected{% endif %}>朝キャバ</option>
+                            <option value="キャバクラ" {% if "キャバクラ" in store.industry %}selected{% endif %}>キャバクラ</option>
+                            <option value="セクキャバ" {% if "セクキャバ" in store.industry %}selected{% endif %}>セクキャバ</option>
+                            <option value="メンズエステ" {% if "メンズエステ" in store.industry %}selected{% endif %}>メンズエステ</option>
+                            <option value="回春エステ" {% if "回春エステ" in store.industry %}selected{% endif %}>回春エステ</option>
+                            <option value="オナクラ" {% if "オナクラ" in store.industry %}selected{% endif %}>オナクラ</option>
+                            <option value="ピンサロ" {% if "ピンサロ" in store.industry %}selected{% endif %}>ピンサロ</option>
+                            <option value="店舗型ヘルス" {% if "店舗型ヘルス" in store.industry %}selected{% endif %}>店舗型ヘルス</option>
+                            <option value="ホテヘル" {% if "ホテヘル" in store.industry %}selected{% endif %}>ホテヘル</option>
+                            <option value="デリヘル" {% if "デリヘル" in store.industry %}selected{% endif %}>デリヘル</option>
+                            <option value="ソープ" {% if "ソープ" in store.industry %}selected{% endif %}>ソープ</option>
+                        </select>
+
+                        <label for="rank">＊必須:ランク</label>
+                        <select name="rank" id="" class="form-select form-select-sm">
+                            <option hidden>採用ランクを選択してください</option>
+                            <option value="1" {% if "1" in store.rank %}selected{% endif %}>1</option>
+                            <option value="2" {% if "2" in store.rank %}selected{% endif %}>2</option>
+                            <option value="3" {% if "3" in store.rank %}selected{% endif %}>3</option>
+                            <option value="4" {% if "4" in store.rank %}selected{% endif %}>4</option>
+                            <option value="5" {% if "5" in store.rank %}selected{% endif %}>5</option>
+                            <option value="6" {% if "6" in store.rank %}selected{% endif %}>6</option>
+                        </select>
+
+                        <label for="pref">＊必須：エリア（複数可）</label>
+                        <select name="pref" id="" multiple class="form-select form-select-sm">
+                            <option value="北海道" {% if "北海道" in store.pref %}selected{% endif %}>北海道</option>
+                            <option value="青森県" {% if "青森県" in store.pref %}selected{% endif %}>青森県</option>
+                            <option value="岩手県" {% if "岩手県" in store.pref %}selected{% endif %}>岩手県</option>
+                            <option value="宮城県" {% if "宮城県" in store.pref %}selected{% endif %}>宮城県</option>
+                            <option value="秋田県" {% if "秋田県" in store.pref %}selected{% endif %}>秋田県</option>
+                            <option value="山形県" {% if "山形県" in store.pref %}selected{% endif %}>山形県</option>
+                            <option value="福島県" {% if "福島県" in store.pref %}selected{% endif %}>福島県</option>
+                            <option value="茨城県" {% if "茨城県" in store.pref %}selected{% endif %}>茨城県</option>
+                            <option value="栃木県" {% if "栃木県" in store.pref %}selected{% endif %}>栃木県</option>
+                            <option value="群馬県" {% if "群馬県" in store.pref %}selected{% endif %}>群馬県</option>
+                            <option value="埼玉県" {% if "埼玉県" in store.pref %}selected{% endif %}>埼玉県</option>
+                            <option value="千葉県" {% if "千葉県" in store.pref %}selected{% endif %}>千葉県</option>
+                            <option value="東京都" {% if "東京都" in store.pref %}selected{% endif %}>東京都</option>
+                            <option value="神奈川県" {% if "神奈川県" in store.pref %}selected{% endif %}>神奈川県</option>
+                            <option value="新潟県" {% if "新潟県" in store.pref %}selected{% endif %}>新潟県</option>
+                            <option value="富山県" {% if "富山県" in store.pref %}selected{% endif %}>富山県</option>
+                            <option value="石川県" {% if "石川県" in store.pref %}selected{% endif %}>石川県</option>
+                            <option value="福井県" {% if "福井県" in store.pref %}selected{% endif %}>福井県</option>
+                            <option value="山梨県" {% if "山梨県" in store.pref %}selected{% endif %}>山梨県</option>
+                            <option value="長野県" {% if "長野県" in store.pref %}selected{% endif %}>長野県</option>
+                            <option value="岐阜県" {% if "岐阜県" in store.pref %}selected{% endif %}>岐阜県</option>
+                            <option value="静岡県" {% if "静岡県" in store.pref %}selected{% endif %}>静岡県</option>
+                            <option value="愛知県" {% if "愛知県" in store.pref %}selected{% endif %}>愛知県</option>
+                            <option value="三重県" {% if "三重県" in store.pref %}selected{% endif %}>三重県</option>
+                            <option value="滋賀県" {% if "滋賀県" in store.pref %}selected{% endif %}>滋賀県</option>
+                            <option value="京都府" {% if "京都府" in store.pref %}selected{% endif %}>京都府</option>
+                            <option value="大阪府" {% if "大阪府" in store.pref %}selected{% endif %}>大阪府</option>
+                            <option value="兵庫県" {% if "兵庫県" in store.pref %}selected{% endif %}>兵庫県</option>
+                            <option value="奈良県" {% if "奈良県" in store.pref %}selected{% endif %}>奈良県</option>
+                            <option value="和歌山県" {% if "和歌山県" in store.pref %}selected{% endif %}>和歌山県</option>
+                            <option value="鳥取県" {% if "鳥取県" in store.pref %}selected{% endif %}>鳥取県</option>
+                            <option value="島根県" {% if "島根県" in store.pref %}selected{% endif %}>島根県</option>
+                            <option value="岡山県" {% if "岡山県" in store.pref %}selected{% endif %}>岡山県</option>
+                            <option value="広島県" {% if "広島県" in store.pref %}selected{% endif %}>広島県</option>
+                            <option value="山口県" {% if "山口県" in store.pref %}selected{% endif %}>山口県</option>
+                            <option value="徳島県" {% if "徳島県" in store.pref %}selected{% endif %}>徳島県</option>
+                            <option value="香川県" {% if "香川県" in store.pref %}selected{% endif %}>香川県</option>
+                            <option value="愛媛県" {% if "愛媛県" in store.pref %}selected{% endif %}>愛媛県</option>
+                            <option value="高知県" {% if "高知県" in store.pref %}selected{% endif %}>高知県</option>
+                            <option value="福岡県" {% if "福岡県" in store.pref %}selected{% endif %}>福岡県</option>
+                            <option value="佐賀県" {% if "佐賀県" in store.pref %}selected{% endif %}>佐賀県</option>
+                            <option value="長崎県" {% if "長崎県" in store.pref %}selected{% endif %}>長崎県</option>
+                            <option value="熊本県" {% if "熊本県" in store.pref %}selected{% endif %}>熊本県</option>
+                            <option value="大分県" {% if "大分県" in store.pref %}selected{% endif %}>大分県</option>
+                            <option value="宮城県" {% if "宮城県" in store.pref %}selected{% endif %}>宮城県</option>
+                            <option value="鹿児島県" {% if "鹿児島県" in store.pref %}selected{% endif %}>鹿児島県</option>
+                            <option value="沖縄県" {% if "沖縄県" in store.pref %}selected{% endif %}>沖縄県</option>
+                        </select>
+
+                        <label for="area">細かいエリア</label>
+                        <input type="text" name="area" placeholder="梅田etc" class="form-control" value="{{ store.area }}">
+
+                        <label for="store_area">店舗エリア</label>
+                        <input type="text" name="store_area" placeholder="梅田店、難波店etc" class="form-control" value="{{ store.store_area }}">
+
+                        <label for="station">最寄り駅</label>
+                        <input type="text" name="station" class="form-control" value="{{ store.station }}">
+
+                        <label for="time">営業時間</label>
+                        <input type="text" name="time" placeholder="00:00~00:00" class="form-control" value="{{ store.time }}">
+
+                        <label for="concept">コンセプト(複数可)</label>
+                        <select name="concept" id="" multiple class="form-select form-select-sm">
+                            <option value="ロリ系" {% if "ロリ系" in store.concept %}selected{% endif %}>ロリ系</option>
+                            <option value="大人系" {% if "大人系" in store.concept %}selected{% endif %}>大人系</option>
+                            <option value="ぽっちゃり系" {% if "ぽっちゃり系" in store.concept %}selected{% endif %}>ぽっちゃり系</option>
+                            <option value="ギャル系" {% if "ギャル系" in store.concept %}selected{% endif %}>ギャル系</option>
+                            <option value="清楚系" {% if "清楚系" in store.concept %}selected{% endif %}>清楚系</option>
+                            <option value="素人系" {% if "素人系" in store.concept %}selected{% endif %}>素人系</option>
+                            <option value="人妻系" {% if "人妻系" in store.concept %}selected{% endif %}>人妻系</option>
+                        </select>
+
+                        <label for="age">採用年齢</label>
+                        <input type="text" name="age" placeholder="0歳~0歳" class="form-control" value="{{ store.age }}">
+
+                        <label for="salary">女子給</label>
+                        <textarea name="salary" id="" cols="30" rows="10" class="form-control">{{ store.salary }}</textarea>
+
+                        <label for="nomination">指名料</label>
+                        <input type="text" name="nomination" placeholder="指名料を入力してください" class="form-control" value="{{ store.nomination }}">
+
+                        <label for="guarantee">保証幅</label>
+                        <input type="text" name="guarantee" placeholder="保証幅を入力してください" class="form-control" value="{{ store.guarantee }}">
+
+                        <label for="face">顔出し</label>
+                        <select name="face" id="" class="form-select form-select-sm">
+                            <option value="有" {% if "有" in store.face %}selected{% endif %}>有</option>
+                            <option value="無" {% if "無" in store.face %}selected{% endif %}>無</option>
+                            <option value="目出し" {% if "目出し" in store.face %}selected{% endif %}>目出し</option>
+                            <option value="口出し" {% if "口出し" in store.face %}selected{% endif %}>口出し</option>
+                        </select>
+
+                        <label for="dormitory">寮費</label>
+                        <input type="text" name="dormitory" placeholder="寮費を入力してください" class="form-control" value="{{ store.dormitory }}">
+
+                        <label for="sundry">雑費</label>
+                        <input type="text" name="sundry" placeholder="雑費を入力してください" class="form-control" value="{{ store.sundry }}">
+
+                        <label for="back">SB</label>
+                        <input type="text" name="back" placeholder="スカウトバックを入力してください" class="form-control" value="{{ store.back }}">
+                        
+                        <label for="remark">備考</label>
+                        <textarea name="remark" id="" cols="30" rows="10" class="form-control">{{ store.remark }}</textarea>
+
+                        <label for="store_tag">特徴(複数可)</label>
+                        <select name="store_tag" id="" multiple class="form-select form-select-sm">
+                            <option value="おすすめ" {% if "おすすめ" in store.store_tag %}selected{% endif %}>おすすめ</option>
+                            <option value="送迎有" {% if "送迎有" in store.store_tag %}selected{% endif %}>送迎有</option>
+                            <option value="出稼ぎ対応可" {% if "出稼ぎ対応可" in store.store_tag %}selected{% endif %}>出稼ぎ対応可</option>
+                            <option value="マット無し対応可" {% if "マット無し対応可" in store.store_tag %}selected{% endif %}>マット無し対応可</option>
+                            <option value="S着" {% if "S着" in store.store_tag %}selected{% endif %}>S着</option>
+                            <option value="NS" {% if "NS" in store.store_tag %}selected{% endif %}>NS</option>
+                            <option value="混合店" {% if "混合店" in store.store_tag %}selected{% endif %}>混合店</option>
+                            <option value="採用幅広い" {% if "採用幅広い" in store.store_tag %}selected{% endif %}>採用幅広い</option>
+                            <option value="30代OK" {% if "30代OK" in store.store_tag %}selected{% endif %}>30代OK</option>
+                            <option value="40代OK" {% if "40代OK" in store.store_tag %}selected{% endif %}>40代OK</option>
+                            <option value="タトゥー対応可" {% if "タトゥー対応可" in store.store_tag %}selected{% endif %}>タトゥー対応可</option>
+                        </select>
+
+                        <input type="submit" value="追加" class="btn btn-dark">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    {% endif %}
+
+{% endblock %}
+
+{% block footer %}
+
+    <div class="footer_contents">
+        <div class="footer_items">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+            {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+        </div>
+        <div class="sns_items">
+            <a href="" class="sns_link"><span class="sns_icon bi bi-twitter"></span></a>
+            <a href="" class="sns_link"><span class="sns_icon bi bi-instagram"></span></a>
+        </div>
+    </div>
+    <div class="copy_right">
+        <p>© 2022 mui all rights reserved.</p>
+    </div>
+
+{% endblock %}

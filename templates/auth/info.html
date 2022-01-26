@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Info{% endblock %}
+
+{% block header %}
+
+    <div class="header_modal">
+        <div class="header_right">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+
+            {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="burger_btn">
+        <span class="bar bar_top"></span>
+        <span class="bar bar_mid"></span>
+        <span class="bar bar_bottom"></span>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+{% if not store_all %}
+
+    <div class="search">
+        <img src="{{url_for('static', filename='img/storeParam(7).jpg')}}" alt="" class="post_img">
+        <div class="err_wrapper">
+            <h1>No Data</h1>
+            <p class="err_msg">＊{{ err_msg }}</p>
+            <a href="{{url_for('search')}}" class="err_link">検索ページにジャンプ</a>
+        </div>
+    </div>
+
+{% else %}
+
+
+    <div class="search">
+        <img src="{{url_for('static', filename='img/storeParam(7).jpg')}}" alt="" class="post_img">
+        <h1 class="search_title">Infomation</h1>
+        <div class="search_post">
+            {% for store in store_all %}
+
+            <article>
+                <a href="{{store.id}}/detail" class="store">
+                    <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+                    <div class="store_info">
+                        <h2 class="name">{{ store.name }}</h2>
+                        <p class="industry">{{ store.industry }}</p>
+                        <p class="pref">{{ store.pref }}</p>
+                        <div class="area">{{ store.area }}</div>
+                        <div class="tag">{{ store.store_tag }}</div>
+                    </div>
+                </a>
+            </article>
+
+            {% endfor %}
+        </div>
+    </div>
+
+
+{% endif %}
+
+{% endblock %}
+
+{% block footer %}
+
+    <div class="footer_contents">
+        <div class="footer_items">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+            {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+        </div>
+        <div class="sns_items">
+            <a href="" class="sns_link"><span class="sns_icon bi bi-twitter"></span></a>
+            <a href="" class="sns_link"><span class="sns_icon bi bi-instagram"></span></a>
+        </div>
+    </div>
+    <div class="copy_right">
+        <p>© 2022 mui all rights reserved.</p>
+    </div>
+
+{% endblock %}

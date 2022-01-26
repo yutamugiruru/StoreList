@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% block title %}Edit{% endblock %}
+
+{% block header %}
+    <div class="header_modal">
+        <div class="header_right">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+
+            {% if current_user.id == 1 %}
+            <a href="{{url_for('edit')}}">パスワード変更</a>
+            <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="burger_btn">
+        <span class="bar bar_top"></span>
+        <span class="bar bar_mid"></span>
+        <span class="bar bar_bottom"></span>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+{% if request.method == 'GET' %}
+
+    <div class="login">
+        <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="edit_img">
+        <div class="edit_wrapper">
+            <h1>Edit</h1>
+
+            <p>
+                セキュリティ対策の為、2つ同時に変更する仕様となっております。
+            </p>
+
+            <!--Edit form-->
+            <div class="container">
+                <form action="" method="POST">
+
+                    <div class="input-group flex-nowrap edit_form">
+                        <span class="input-group-text label" id="addon-wrapping">管理者</span>
+                        <input type="text" name="password1" class="form-control form">
+                    </div>
+
+                    <div class="input-group flex-nowrap edit_form">
+                        <span class="input-group-text label" id="addon-wrapping">一般</span>
+                        <input type="text" name="password2" class="form-control form">
+                    </div>
+
+                    <input type="submit" value="edit" class="edit_btn btn btn-dark">
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% else %}
+
+    <!--not err_msg-->
+    {% if not err_msg %}
+
+        
+        <div class="login">
+            <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="edit_img">
+            <div class="edit_wrapper">
+                <h2>確認画面</h2>
+
+                <div class="group">
+                    <p class="authority">管理者：</p>
+                    <div class="password">{{ password1 }}</div>
+                </div>
+
+                <div class="group">
+                    <p class="authority">一般：</p>
+                    <div class="password">{{ password2 }}</div>
+                </div>
+        
+                <a href="{{url_for('logout')}}">ログインページに戻る</a>
+            </div>
+        </div>
+
+    <!--err_msg-->
+    {% else %}
+
+        <div class="login">
+            <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="edit_img">
+            <div class="edit_wrapper">
+                <h1>Edit</h1>
+
+                <div class="err_msg">＊{{ err_msg }}</div>
+
+                <!--Edit form-->
+                <div class="container">
+                    <form action="" method="POST">
+
+                        <div class="input-group flex-nowrap edit_form">
+                            <span class="input-group-text label" id="addon-wrapping">管理者</span>
+                            <input type="text" name="password1" class="form-control form">
+                        </div>
+
+                        <div class="input-group flex-nowrap edit_form">
+                            <span class="input-group-text label" id="addon-wrapping">一般</span>
+                            <input type="text" name="password2" class="form-control form">
+                        </div>
+
+                        <input type="submit" value="edit" class="edit_btn btn btn-dark">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

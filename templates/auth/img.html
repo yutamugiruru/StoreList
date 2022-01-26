@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}Img{% endblock %}
+
+{% block header %}
+
+    <div class="header_modal">]
+        <div class="header_right">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+            {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="burger_btn">
+        <span class="bar bar_top"></span>
+        <span class="bar bar_mid"></span>
+        <span class="bar bar_bottom"></span>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+    {% if request.method == 'GET' %}
+
+    <div class="create">
+        <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
+
+        <div class="create_wrapper">
+            <h1 class="create_title">Img</h1>
+            <div class="img_wrapper">
+                <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+            </div>
+            <form action="" enctype="multipart/form-data" method="POST" class="img_form">
+                <input type="file" name="pic" class="form-control">
+                <input type="submit" value="変更" class="btn btn-dark">
+            </form>
+        </div>
+            
+    </div>
+
+    {% else %}
+        {% if not err_msg %}
+    
+            <div class="create">
+                <img src="{{url_for('static',filename='img/storeParam(7).jpg')}}" alt="" class="create_img">
+
+                <div class="create_wrapper">
+                    <h2 class="sub_title">確認画面</h2>
+                    <div class="img_wrapper">
+                        <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+                    </div>
+                    <a href="{{url_for('search')}}" class="return_link">検索ページへジャンプ</a>
+                </div>
+            </div>
+        
+        {% else %}
+
+            <div class="create">
+                <img src="{{url_for('static', filename='img/storeParam(7).jpg')}}" alt="" class="create_img">
+        
+                <div class="create_wrapper">
+                    <h1 class="create_title">Img</h1>
+                    <div class="img_wrapper">
+                        <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+                    </div>
+                    <p class="err_msg">{{ err_msg }}</p>
+                    <form action="" enctype="multipart/form-data" method="POST" class="img_form">
+                        <input type="file" name="pic" class="form-control">
+                        <input type="submit" value="変更" class="btn btn-dark">
+                    </form>
+                </div>
+                    
+            </div>
+            
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
+
+{% block footer %}
+
+    <div class="footer_contents">
+        <div class="footer_items">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+            {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+        </div>
+        <div class="sns_items">
+            <a href="" class="sns_link"><span class="sns_icon bi bi-twitter"></span></a>
+            <a href="" class="sns_link"><span class="sns_icon bi bi-instagram"></span></a>
+        </div>
+    </div>
+    <div class="copy_right">
+        <p>© 2022 mui all rights reserved.</p>
+    </div>
+
+{% endblock %}

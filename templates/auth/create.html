@@ -1,0 +1,540 @@
+{% extends "base.html" %}
+{% block title %}Search{% endblock %}
+
+{% block header %}
+
+<div class="header_modal">
+    <div class="header_right">
+        <a href="{{url_for('logout')}}">Logout</a>
+        <a href="{{url_for('search')}}">検索</a>
+        <a href="{{url_for('info')}}">新規提携</a>
+        <a href="{{url_for('favorite')}}">おすすめ</a>
+
+            {% if current_user.id == 1 %}
+            <a href="{{url_for('edit')}}">パスワード変更</a>
+            <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+    </div>
+</div>
+
+<div class="burger_btn">
+    <span class="bar bar_top"></span>
+    <span class="bar bar_mid"></span>
+    <span class="bar bar_bottom"></span>
+</div>
+
+{% endblock %}
+
+{% block content %}
+    {% if request.method == 'GET' %}
+
+    <div class="create">
+        <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
+        <div class="create_wrapper">
+            <h1 class="create_title">Create</h1>
+            <div class="container">
+                <form action="" enctype="multipart/form-data" method="POST" class="create_form">
+
+                    <label for="name">＊必須:店舗名</label>
+                    <input type="text" name="name" class="form-control">
+
+                    <label for="industry">＊必須:業種</label>
+                    <select name="industry" id="" class="form-select form-select-sm">
+                        <option hidden></option>
+                        <option value="ラウンジ">ラウンジ</option>
+                        <option value="朝キャバ">朝キャバ</option>
+                        <option value="キャバクラ">キャバクラ</option>
+                        <option value="セクキャバ">セクキャバ</option>
+                        <option value="メンズエステ">メンズエステ</option>
+                        <option value="回春エステ">回春エステ</option>
+                        <option value="オナクラ">オナクラ</option>
+                        <option value="ピンサロ">ピンサロ</option>
+                        <option value="店舗型ヘルス">店舗型ヘルス</option>
+                        <option value="ホテヘル">ホテヘル</option>
+                        <option value="デリヘル">デリヘル</option>
+                        <option value="ソープ">ソープ</option>
+                    </select>
+
+                    <label for="rank">＊必須:ランク</label>
+                    <select name="rank" id="" class="form-select form-select-sm">
+                        <option hidden></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+
+                    <label for="pref">＊必須：エリア（複数可）</label>
+                    <select name="pref" id="" multiple class="form-select form-select-sm">
+                        <option value="北海道">北海道</option>
+                        <option value="青森県">青森県</option>
+                        <option value="岩手県">岩手県</option>
+                        <option value="宮城県">宮城県</option>
+                        <option value="秋田県">秋田県</option>
+                        <option value="山形県">山形県</option>
+                        <option value="福島県">福島県</option>
+                        <option value="茨城県">茨城県</option>
+                        <option value="栃木県">栃木県</option>
+                        <option value="群馬県">群馬県</option>
+                        <option value="埼玉県">埼玉県</option>
+                        <option value="千葉県">千葉県</option>
+                        <option value="東京都">東京都</option>
+                        <option value="神奈川県">神奈川県</option>
+                        <option value="新潟県">新潟県</option>
+                        <option value="富山県">富山県</option>
+                        <option value="石川県">石川県</option>
+                        <option value="福井県">福井県</option>
+                        <option value="山梨県">山梨県</option>
+                        <option value="長野県">長野県</option>
+                        <option value="岐阜県">岐阜県</option>
+                        <option value="静岡県">静岡県</option>
+                        <option value="愛知県">愛知県</option>
+                        <option value="三重県">三重県</option>
+                        <option value="滋賀県">滋賀県</option>
+                        <option value="京都府">京都府</option>
+                        <option value="大阪府">大阪府</option>
+                        <option value="兵庫県">兵庫県</option>
+                        <option value="奈良県">奈良県</option>
+                        <option value="和歌山県">和歌山県</option>
+                        <option value="鳥取県">鳥取県</option>
+                        <option value="島根県">島根県</option>
+                        <option value="岡山県">岡山県</option>
+                        <option value="広島県">広島県</option>
+                        <option value="山口県">山口県</option>
+                        <option value="徳島県">徳島県</option>
+                        <option value="香川県">香川県</option>
+                        <option value="愛媛県">愛媛県</option>
+                        <option value="高知県">高知県</option>
+                        <option value="福岡県">福岡県</option>
+                        <option value="佐賀県">佐賀県</option>
+                        <option value="長崎県">長崎県</option>
+                        <option value="熊本県">熊本県</option>
+                        <option value="大分県">大分県</option>
+                        <option value="宮城県">宮城県</option>
+                        <option value="鹿児島県">鹿児島県</option>
+                        <option value="沖縄県">沖縄県</option>
+                    </select>
+
+                    <label for="area">細かいエリア</label>
+                    <input type="text" name="area" placeholder="梅田etc" class="form-control">
+
+                    <label for="store_area">店舗エリア</label>
+                    <input type="text" name="store_area" placeholder="梅田店、難波店etc" class="form-control">
+
+                    <label for="station">最寄り駅</label>
+                    <input type="text" name="station" class="form-control">
+
+                    <label for="time">営業時間</label>
+                    <input type="text" name="time" placeholder="00:00~00:00" class="form-control">
+
+                    <label for="concept">コンセプト(複数可)</label>
+                    <select name="concept" id="" multiple class="form-select form-select-sm">
+                        <option value="">コンセプトを選択してください</option>
+                        <option value="ロリ系">ロリ系</option>
+                        <option value="大人系">大人系</option>
+                        <option value="ぽっちゃり系">ぽっちゃり系</option>
+                        <option value="ギャル系">ギャル系</option>
+                        <option value="清楚系">清楚系</option>
+                        <option value="素人系">素人系</option>
+                        <option value="人妻系">人妻系</option>
+                    </select>
+
+                    <label for="age">採用年齢</label>
+                    <input type="text" name="age" placeholder="0歳~0歳" class="form-control">
+
+                    <label for="salary">女子給</label>
+                    <textarea name="salary" id="" cols="30" rows="15" class="form-control">
+スタンダード
+60:8000円
+90:11000円
+120:14000円
+                    </textarea>
+
+                    <label for="nomination">指名料</label>
+                    <input type="text" name="nomination" placeholder="指名料を入力してください" class="form-control">
+
+                    <label for="guarantee">保証幅</label>
+                    <input type="text" name="guarantee" placeholder="保証幅を入力してください" class="form-control">
+
+                    <label for="face">顔出し</label>
+                    <select name="face" id="" class="form-select form-select-sm">
+                        <option value="">顔出し範囲を選択してください</option>
+                        <option value="有">有</option>
+                        <option value="無">無</option>
+                        <option value="目出し">目出し</option>
+                        <option value="口出し">口出し</option>
+                    </select>
+
+                    <label for="dormitory">寮費</label>
+                    <input type="text" name="dormitory" placeholder="寮費を入力してください" class="form-control">
+
+                    <label for="sundry">雑費</label>
+                    <input type="text" name="sundry" placeholder="雑費を入力してください" class="form-control">
+
+                    <label for="back">SB</label>
+                    <input type="text" name="back" placeholder="スカウトバックを入力してください" class="form-control">
+                    
+                    <label for="remark">備考</label>
+                    <textarea name="remark" id="" cols="30" rows="10" class="form-control"></textarea>
+
+                    <label for="store_tag">特徴(複数可)</label>
+                    <select name="store_tag" id="" multiple class="form-select form-select-sm">
+                        <option value="おすすめ">おすすめ</option>
+                        <option value="送迎有">送迎有</option>
+                        <option value="出稼ぎ対応可">出稼ぎ対応可</option>
+                        <option value="マット無し対応可">マット無し対応可</option>
+                        <option value="S着">S着</option>
+                        <option value="NS">NS</option>
+                        <option value="混合店">混合店</option>
+                        <option value="採用幅広い">採用幅広い</option>
+                        <option value="30代OK">30代OK</option>
+                        <option value="40代OK">40代OK</option>
+                        <option value="タトゥー対応可">タトゥー対応可</option>
+                    </select>
+
+                    <label for="pic">店舗画像</label>
+                    <input type="file" name="pic" class="form-control">
+
+                    <input type="submit" value="追加" class="btn btn-dark">
+
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+        {% if not err_msg %}
+
+                
+        <div class="create">
+            <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
+            <div class="create_wrapper">
+                <h1 class="create_title">Data</h1>
+                <div class="img_wrapper">
+                    {% if current_user.id == 1 %}
+                    <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+                    <a href="/{{store.id}}/img" class="host_img">
+                        <i class="host_icon bi bi-plus-circle-dotted"></i>
+                    </a>
+                    {% else %}
+                    <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+                    {% endif %}
+                </div>
+                <div class="store_data">
+                    <h2 class="name">{{ store.name }}</h2>
+                    <table>
+                        <tr class="table_data">
+                            <td class="data_title">業種：</td>
+                            <td class="data industry">{{ store.industry }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">ランク：</td>
+                            <td class="data rank">{{ store.rank }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">エリア：</td>
+                            <td class="data pref">
+                                {% set list1 = store.pref.split(',') %}
+                                <p>
+                                    {% for pref in list1 %}
+                                        <span class="pref_text"><i class="pref_icon bi bi-geo-alt-fill"></i>{{ pref }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">詳細エリア：</td>
+                            <td class="data area">{{ store.area }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">店舗エリア：</td>
+                            <td class="data store_area">{{ store.store_area }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">最寄り駅：</td>
+                            <td class="data station">{{ store.station }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">営業時間：</td>
+                            <td class="data time">{{ store.time }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">コンセプト：</td>
+                            <td class="data concept">
+                                <p>
+                                    {% set list2 = store.concept.split(',') %}
+                                    {% for concept in list2 %}
+                                        <span class="concept_text"><i class="concept_icon bi bi-pin-fill"></i>{{ concept }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">年齢：</td>
+                            <td class="data age">{{ store.age }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">女子給：</td>
+                            <td class="data salary"><textarea name="" id="" cols="25" rows="11">{{ store.salary }}</textarea></td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">指名料：</td>
+                            <td class="data nomination">{{ store.nomination }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">保証幅：</td>
+                            <td class="data guarantee">{{ store.guarantee }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">顔出し：</td>
+                            <td class="data face">{{ store.face }}</td>
+                        </tr>
+                        <var><tr class="table_data">
+                            <td class="data_title">寮費：</td>
+                            <td class="data dormitory">{{ store.dormitory }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">雑費：</td>
+                            <td class="data sundry">{{ store.sundry }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">SB：</td>
+                            <td class="data back">{{ store.back }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">備考：</td>
+                            <td class="data remark">{{ store.remark }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">特徴：</td>
+                            <td class="data store_tag">
+                                {% set list3 = store.store_tag.split(',') %}
+                                <p>
+                                    {% for store_tag in list3 %}
+                                        <span class="tag_text"><i class="tag_icon bi bi-tag-fill"></i>{{ store_tag }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="store_control">
+                    {% if current_user.id == 1 %}
+                    <span class="control_icon destroy_icon bi bi-trash-fill"></span>
+                    <a href="/{{store.id}}/update"><span class="control_icon update_icon bi bi-pencil-square"></span></a>
+                    {% endif %}
+                </div>
+                <a href="{{url_for('search')}}" class="return_link">検索ページへジャンプ</a>
+            </div>
+        </div>
+
+        {% else %}
+
+        <div class="create">
+            <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
+            <div class="create_wrapper">
+                <h1 class="create_title">Create</h1>
+                <p class="err_msg">{{ err_msg }}</p>
+                <div class="container">
+                    <form action="" enctype="multipart/form-data" method="POST" class="create_form">
+    
+                        <label for="name">＊必須:店舗名</label>
+                        <input type="text" name="name" class="form-control">
+    
+                        <label for="industry">＊必須:業種</label>
+                        <select name="industry" id="" class="form-select form-select-sm">
+                            <option hidden></option>
+                            <option value="ラウンジ">ラウンジ</option>
+                            <option value="朝キャバ">朝キャバ</option>
+                            <option value="キャバクラ">キャバクラ</option>
+                            <option value="セクキャバ">セクキャバ</option>
+                            <option value="メンズエステ">メンズエステ</option>
+                            <option value="回春エステ">回春エステ</option>
+                            <option value="オナクラ">オナクラ</option>
+                            <option value="ピンサロ">ピンサロ</option>
+                            <option value="店舗型ヘルス">店舗型ヘルス</option>
+                            <option value="ホテヘル">ホテヘル</option>
+                            <option value="デリヘル">デリヘル</option>
+                            <option value="ソープ">ソープ</option>
+                        </select>
+    
+                        <label for="rank">＊必須:ランク</label>
+                        <select name="rank" id="" class="form-select form-select-sm">
+                            <option hidden></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                        </select>
+    
+                        <label for="pref">＊必須：エリア（複数可）</label>
+                        <select name="pref" id="" multiple class="form-select form-select-sm">
+                            <option value="北海道">北海道</option>
+                            <option value="青森県">青森県</option>
+                            <option value="岩手県">岩手県</option>
+                            <option value="宮城県">宮城県</option>
+                            <option value="秋田県">秋田県</option>
+                            <option value="山形県">山形県</option>
+                            <option value="福島県">福島県</option>
+                            <option value="茨城県">茨城県</option>
+                            <option value="栃木県">栃木県</option>
+                            <option value="群馬県">群馬県</option>
+                            <option value="埼玉県">埼玉県</option>
+                            <option value="千葉県">千葉県</option>
+                            <option value="東京都">東京都</option>
+                            <option value="神奈川県">神奈川県</option>
+                            <option value="新潟県">新潟県</option>
+                            <option value="富山県">富山県</option>
+                            <option value="石川県">石川県</option>
+                            <option value="福井県">福井県</option>
+                            <option value="山梨県">山梨県</option>
+                            <option value="長野県">長野県</option>
+                            <option value="岐阜県">岐阜県</option>
+                            <option value="静岡県">静岡県</option>
+                            <option value="愛知県">愛知県</option>
+                            <option value="三重県">三重県</option>
+                            <option value="滋賀県">滋賀県</option>
+                            <option value="京都府">京都府</option>
+                            <option value="大阪府">大阪府</option>
+                            <option value="兵庫県">兵庫県</option>
+                            <option value="奈良県">奈良県</option>
+                            <option value="和歌山県">和歌山県</option>
+                            <option value="鳥取県">鳥取県</option>
+                            <option value="島根県">島根県</option>
+                            <option value="岡山県">岡山県</option>
+                            <option value="広島県">広島県</option>
+                            <option value="山口県">山口県</option>
+                            <option value="徳島県">徳島県</option>
+                            <option value="香川県">香川県</option>
+                            <option value="愛媛県">愛媛県</option>
+                            <option value="高知県">高知県</option>
+                            <option value="福岡県">福岡県</option>
+                            <option value="佐賀県">佐賀県</option>
+                            <option value="長崎県">長崎県</option>
+                            <option value="熊本県">熊本県</option>
+                            <option value="大分県">大分県</option>
+                            <option value="宮城県">宮城県</option>
+                            <option value="鹿児島県">鹿児島県</option>
+                            <option value="沖縄県">沖縄県</option>
+                        </select>
+    
+                        <label for="area">細かいエリア</label>
+                        <input type="text" name="area" placeholder="梅田etc" class="form-control">
+    
+                        <label for="store_area">店舗エリア</label>
+                        <input type="text" name="store_area" placeholder="梅田店、難波店etc" class="form-control">
+    
+                        <label for="station">最寄り駅</label>
+                        <input type="text" name="station" class="form-control">
+    
+                        <label for="time">営業時間</label>
+                        <input type="text" name="time" placeholder="00:00~00:00" class="form-control">
+    
+                        <label for="concept">コンセプト(複数可)</label>
+                        <select name="concept" id="" multiple class="form-select form-select-sm">
+                            <option value="">コンセプトを選択してください</option>
+                            <option value="ロリ系">ロリ系</option>
+                            <option value="大人系">大人系</option>
+                            <option value="ぽっちゃり系">ぽっちゃり系</option>
+                            <option value="ギャル系">ギャル系</option>
+                            <option value="清楚系">清楚系</option>
+                            <option value="素人系">素人系</option>
+                            <option value="人妻系">人妻系</option>
+                        </select>
+    
+                        <label for="age">採用年齢</label>
+                        <input type="text" name="age" placeholder="0歳~0歳" class="form-control">
+    
+                        <label for="salary">女子給</label>
+                        <textarea name="salary" id="" cols="30" rows="10" class="form-control">
+スタンダード
+60:8000円
+90:11000円
+120:14000円
+                        </textarea>
+    
+                        <label for="nomination">指名料</label>
+                        <input type="text" name="nomination" placeholder="指名料を入力してください" class="form-control">
+    
+                        <label for="guarantee">保証幅</label>
+                        <input type="text" name="guarantee" placeholder="保証幅を入力してください" class="form-control">
+    
+                        <label for="face">顔出し</label>
+                        <select name="face" id="" class="form-select form-select-sm">
+                            <option value="">顔出し範囲を選択してください</option>
+                            <option value="有">有</option>
+                            <option value="無">無</option>
+                            <option value="目出し">目出し</option>
+                            <option value="口出し">口出し</option>
+                        </select>
+    
+                        <label for="dormitory">寮費</label>
+                        <input type="text" name="dormitory" placeholder="寮費を入力してください" class="form-control">
+    
+                        <label for="sundry">雑費</label>
+                        <input type="text" name="sundry" placeholder="雑費を入力してください" class="form-control">
+    
+                        <label for="back">SB</label>
+                        <input type="text" name="back" placeholder="スカウトバックを入力してください" class="form-control">
+                        
+                        <label for="remark">備考</label>
+                        <textarea name="remark" id="" cols="30" rows="10" class="form-control"></textarea>
+    
+                        <label for="store_tag">特徴(複数可)</label>
+                        <select name="store_tag" id="" multiple class="form-select form-select-sm">
+                            <option value="おすすめ">おすすめ</option>
+                            <option value="送迎有">送迎有</option>
+                            <option value="出稼ぎ対応可">出稼ぎ対応可</option>
+                            <option value="マット無し対応可">マット無し対応可</option>
+                            <option value="S着">S着</option>
+                            <option value="NS">NS</option>
+                            <option value="混合店">混合店</option>
+                            <option value="採用幅広い">採用幅広い</option>
+                            <option value="30代OK">30代OK</option>
+                            <option value="40代OK">40代OK</option>
+                            <option value="タトゥー対応可">タトゥー対応可</option>
+                        </select>
+    
+                        <label for="pic">店舗画像</label>
+                        <input type="file" name="pic" class="form-control">
+    
+                        <input type="submit" value="追加" class="btn btn-dark">
+    
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+    {% endif %}
+
+{% endblock %}
+
+{% block footer %}
+
+    <div class="footer_contents">
+        <div class="footer_items">
+            <a href="{{url_for('logout')}}">Logout</a>
+            <a href="{{url_for('search')}}">検索</a>
+            <a href="{{url_for('info')}}">新規提携</a>
+            <a href="{{url_for('favorite')}}">おすすめ</a>
+            {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+            {% endif %}
+        </div>
+        <div class="sns_items">
+            <a href="" class="sns_link"><span class="sns_icon bi bi-twitter"></span></a>
+            <a href="" class="sns_link"><span class="sns_icon bi bi-instagram"></span></a>
+        </div>
+    </div>
+    <div class="copy_right">
+        <p>© 2022 mui all rights reserved.</p>
+    </div>
+
+
+{% endblock %}

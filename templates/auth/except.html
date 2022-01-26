@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Except{% endblock %}
+
+{% block content %}
+
+<div class="search">
+    <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="post_img">
+    <div class="err_wrapper">
+        <h1>404 Not Found</h1>
+        <p class="err_msg">＊{{ err_msg }}</p>
+        <a href="{{url_for('logout')}}" class="err_link">ログインページに戻る</a>
+    </div>
+</div>
+
+{% endblock %}

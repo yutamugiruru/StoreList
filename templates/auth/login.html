@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block header %}
+    {% if request.method == 'POST' %}
+        {% if not err_msg %}
+        <div class="header_modal">
+            <div class="header_right">
+                <a href="{{url_for('logout')}}">Logout</a>
+                <a href="{{url_for('search')}}">検索</a>
+                <a href="{{url_for('info')}}">新規提携</a>
+                <a href="{{url_for('favorite')}}">おすすめ</a>
+
+                {% if current_user.id == 1 %}
+                <a href="{{url_for('edit')}}">パスワード変更</a>
+                <a href="{{url_for('create')}}">店舗追加</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="burger_btn">
+            <span class="bar bar_top"></span>
+            <span class="bar bar_mid"></span>
+            <span class="bar bar_bottom"></span>
+        </div>
+
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% if request.method == 'GET' %}
+
+<!--login form-->
+<div class="login">
+    <img src="{{url_for('static', filename='outputs/storeParam(1).jpg')}}" alt="" class="login_img">
+    <div class="login_wrapper">
+            <h1>Login</h1>
+            <div class="container">
+                <form action="" method="POST">
+                    <div class="input-group flex-nowrap login_form">
+                        <span class="input-group-text label" id="addon-wrapping">password</span>
+                        <input type="password" name="password" class="form-control form" aria-describedby="addon-wrapping">
+                    </div>
+                    <input type="submit" value="login" class="login_btn btn btn-dark">
+                </form>
+            </div>
+    </div>
+</div>
+
+{% else %}
+
+    <!--not err_msg-->
+    {% if not err_msg %}
+
+    <div class="login">
+
+        <img src="{{url_for('static', filename='outputs/storeParam(2).jpg')}}" alt="" class="login_img" id="login_post">
+            
+        <div class="login_wrapper">
+            <h1 id="title_post">WellCome</h1>
+
+            <a href="{{url_for('search')}}">TopPage</a>
+        </div>
+    </div>
+
+    <!--err_msg-->
+    {% else %}
+
+        <!--login form-->
+        <div class="login">
+            <img src="{{url_for('static', filename='outputs/storeParam(1).jpg')}}" alt="" class="login_img">
+            <div class="login_wrapper">
+                    <h1>Login</h1>
+                    <div class="container">
+                        <form action="" method="POST">
+                            <div class="input-group flex-nowrap login_form">
+                                <span class="input-group-text label" id="addon-wrapping">password</span>
+                                <input type="password" name="password" class="form-control form" aria-describedby="addon-wrapping">
+                            </div>
+                            <p class="err_msg">＊{{ err_msg }}</p>
+                            <input type="submit" value="login" class="login_btn btn btn-dark">
+                        </form>
+                    </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

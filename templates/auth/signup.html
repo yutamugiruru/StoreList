@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+
+{% if request.method == 'GET' %}
+
+    <h1>Signup</h1>
+
+    <!--signup form-->
+    <form action="" method="POST">
+        <label for="authority">authority</label>
+        <input type="text" name="authority">
+
+        <label for="password">password</label>
+        <input type="text" name="password">
+
+        <input type="submit" value="signup">
+    </form>
+
+{% else %}
+
+    {% if not err_msg %}
+
+    <h2>確認画面</h2>
+
+    <p>権限名</p>
+    <div class="authority">{{ authority }}</div>
+
+    <p>パスワード</p>
+    <div class="password">{{ password }}</div>
+
+    {% else %}
+
+    <h1>Signup</h1>
+
+    <p>{{ err_msg }}</p>
+
+    <!--signup form-->
+    <form action="" method="POST">
+        <label for="authority">authority</label>
+        <input type="text" name="authority">
+
+        <label for="password">password</label>
+        <input type="text" name="password">
+
+        <input type="submit" value="signup">
+    </form>
+
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

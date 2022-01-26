@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, session, app
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import and_, or_, not_
@@ -7,13 +7,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 #app 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///info.db'
 app.config['SECRET_KEY'] = os.urandom(24)
+app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=1)
 db = SQLAlchemy(app)
 
 #flask login
@@ -54,10 +55,12 @@ class Store(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(pytz.timezone('Asia/Tokyo')))
     store_img = db.Column(db.String(200))
 
+'''
 #flask admin
 admin = Admin(app)
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Store, db.session))
+'''
 
 #login_manager
 @login_manager.user_loader
@@ -67,6 +70,7 @@ def load_user(user_id):
 #login
 @app.route("/",methods=['GET','POST'])
 def login():
+    session.permanent = True
     if request.method == 'POST':
     
         password = request.form.get('password')
@@ -91,7 +95,7 @@ def login():
         
 #password signup
 @app.route("/signup", methods=['GET','POST'])
-#@login_required
+@login_required
 def signup():
     if request.method == 'POST':
         
@@ -116,7 +120,7 @@ def signup():
     
 #password edit
 @app.route("/edit", methods=['GET','POST'])
-#@login_required
+@login_required
 def edit():
     if request.method == 'POST':
         
@@ -150,14 +154,14 @@ def edit():
     
 #logout
 @app.route("/logout")
-#@login_required
+@login_required
 def logout():
     logout_user()
     return redirect("/")
 
 #search
 @app.route('/search', methods=['GET','POST'])
-#@login_required
+@login_required
 def search():
      
     if request.method == 'POST':
@@ -237,7 +241,7 @@ def search():
 
 #store create
 @app.route("/create", methods=['GET','POST'])
-#@login_required
+@login_required
 def create():
     if request.method == 'POST':
         
@@ -276,13 +280,16 @@ def create():
                 filepath = filedir + filename
                 pic.save(filepath)
                 img = filename
-            
-            storeList = Store(name = name, industry = industry, rank = rank, pref = pref, area = area, store_area = store_area, station = station, time = time, concept = concept, age = age, salary = salary, nomination = nomination, guarantee = guarantee, face = face, dormitory = dormitory, sundry = sundry, back = back, remark = remark, store_tag = store_tag, search_tag = search_tag, store_img = img)
                 
-            db.session.add(storeList)
-            db.session.commit()
-                
-            return render_template('auth/create.html', store = storeList)
+                try:
+                    storeList = Store(name = name, industry = industry, rank = rank, pref = pref, area = area, store_area = store_area, station = station, time = time, concept = concept, age = age, salary = salary, nomination = nomination, guarantee = guarantee, face = face, dormitory = dormitory, sundry = sundry, back = back, remark = remark, store_tag = store_tag, search_tag = search_tag, store_img = img)
+                        
+                    db.session.add(storeList)
+                    db.session.commit()
+                        
+                    return render_template('auth/create.html', store = storeList)
+                except:
+                    return render_template('auth/except.html')
             
         else:
             
@@ -294,7 +301,7 @@ def create():
     
 #store update
 @app.route("/<int:id>/update", methods=['GET','POST'])
-#@login_required
+@login_required
 def update(id):
     storeList = Store.query.get(id)
     
@@ -326,9 +333,12 @@ def update(id):
 
         if storeList.name != '' and storeList.industry != '' and storeList.rank != '' and storeList.pref != '' and storeList.salary != '':
 
-            db.session.commit()
-                    
-            return render_template('auth/detail.html', store = storeList)
+            try:
+                db.session.commit()
+                        
+                return render_template('auth/detail.html', store = storeList)
+            except:
+                return render_template('auth/except.html')
 
         else:
                 
@@ -341,7 +351,7 @@ def update(id):
 
 #store img
 @app.route("/<int:id>/img", methods=['GET','POST'])
-#login_required
+@login_required
 def img(id):
     storeList = Store.query.get(id)
     if request.method == 'POST':
@@ -378,7 +388,7 @@ def img(id):
     
 #store destroy
 @app.route("/<int:id>/destroy", methods=['GET'])
-#@login_required
+@login_required
 def destroy(id):
     storeList = Store.query.get(id)
     
@@ -388,13 +398,13 @@ def destroy(id):
 
 #store detail
 @app.route("/<int:id>/detail")
-#login_required
+@login_required
 def detail(id):
     storeList = Store.query.get(id)
     return render_template('auth/detail.html', store = storeList)
 
 @app.route("/favorite", methods=['GET'])
-#@login_required
+@login_required
 def favorite():
 
     err_msg = "おすすめの店舗が登録されていません"
@@ -404,7 +414,7 @@ def favorite():
     return render_template('auth/favorite.html', err_msg = err_msg, store_all = store_all, count = store_count)
 
 @app.route("/info", methods=['GET'])
-#@login_required
+@login_required
 def info():
 
     err_msg = "店舗を登録してください"

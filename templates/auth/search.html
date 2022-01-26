@@ -135,7 +135,7 @@
         <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="post_img">
         <h1 class="search_title">Result</h1>
         <div class="search_post">
-            <div class="container search_check">
+            <div class="container search_check" data-type="check">
                 <h2>絞り込み検索</h2>
                     <div class="check_list">
                         <div class="list_check form-check form-switch">
@@ -197,11 +197,11 @@
 
             </div>
 
-            <p class="count"><span class="result_icon bi bi-box-seam"></span>検索結果：{{ count }}件</p>
+            <p class="count"><span class="result_icon bi bi-box-seam"></span>検索結果：<span class="target_count">{{count}}</span>件</p>
 
             {% for store in store_all %}
 
-                <article class="article_items" data-check=>
+                <article class="article_items" data-check="{{store.store_tag}}">
                     <a href="{{store.id}}/detail" class="store">
                         <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
                         <div class="store_info">

@@ -52,15 +52,24 @@
 
             {% for store in store_all %}
 
-                <article>
+                <article class="article_items">
                     <a href="{{store.id}}/detail" class="store">
                         <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
                         <div class="store_info">
                             <h2 class="name">{{ store.name }}</h2>
-                            <p class="industry">{{ store.industry }}</p>
-                            <p class="pref">{{ store.pref }}</p>
-                            <div class="area">{{ store.area }}</div>
-                            <div class="tag">{{ store.store_tag }}</div>
+                            <p class="industry"><span class="industry_icon bi bi-pin-fill"></span>{{ store.industry }}</p>
+                            <p class="pref">
+                                {% set list1 = store.pref.split(',') %}
+                                {% for pref in list1 %}
+                                    <span class="pref_text">{{ pref }}</span>
+                                {% endfor %}
+                            </p>
+                            <p class="tag">
+                                {% set list3 = store.store_tag.split(',') %}
+                                {% for store_tag in list3 %}
+                                    <span class="tag_text">{{ store_tag }}</span>
+                                {% endfor %}
+                            </p>
                         </div>
                     </a>
                 </article>

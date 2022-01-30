@@ -847,6 +847,7 @@ header .burger_btn.close .bar_bottom {
 .create .create_wrapper .store_data .data textarea {
   margin: 0;
   padding: 5px 10px;
+  width: 180px;
   display: block;
 }
 

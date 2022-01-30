@@ -14,10 +14,11 @@ import pytz
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///info.db'
 app.config['SECRET_KEY'] = os.urandom(24)
-app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=1)
+app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=10)
 db = SQLAlchemy(app)
 
 #flask login
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 

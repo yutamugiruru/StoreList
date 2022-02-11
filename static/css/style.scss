@@ -435,6 +435,7 @@ header {
                         color: $sentence_color;
                     }
                     .check_tag {
+                        white-space: nowrap;
                         font-size: $text;
                         font-family: $ja_sentence;
                         color: $sentence_color;

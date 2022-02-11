@@ -152,7 +152,7 @@
         <div class="store_control">
             {% if current_user.id == 1 %}
             <span class="control_icon destroy_icon bi bi-trash-fill"></span>
-            <a href="/{{store.id}}/update"><span class="control_icon update_icon bi bi-pencil-square"></span></a>
+            <a href="update"><span class="control_icon update_icon bi bi-pencil-square"></span></a>
             {% endif %}
         </div>
         <a href="{{url_for('search')}}" class="return_link">検索ページへジャンプ</a>

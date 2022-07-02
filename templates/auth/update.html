@@ -204,6 +204,132 @@
     </div>
 
     {% else %}
+        {% if not err_msg %}
+                
+        <div class="create">
+            <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
+            <div class="create_wrapper">
+                <h1 class="create_title">Data</h1>
+                <div class="img_wrapper">
+                    {% if current_user.id == 1 %}
+                    <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+                    <a href="/{{store.id}}/img" class="host_img">
+                        <i class="host_icon bi bi-plus-circle-dotted"></i>
+                    </a>
+                    {% else %}
+                    <img src="{{url_for('static', filename=store.store_img)}}" alt="" class="store_img">
+                    {% endif %}
+                </div>
+                <div class="store_data">
+                    <h2 class="name">{{ store.name }}</h2>
+                    <table>
+                        <tr class="table_data">
+                            <td class="data_title">業種：</td>
+                            <td class="data industry">{{ store.industry }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">ランク：</td>
+                            <td class="data rank">{{ store.rank }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">エリア：</td>
+                            <td class="data pref">
+                                {% set list1 = store.pref.split(',') %}
+                                <p>
+                                    {% for pref in list1 %}
+                                        <span class="pref_text"><i class="pref_icon bi bi-geo-alt-fill"></i>{{ pref }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">詳細エリア：</td>
+                            <td class="data area">{{ store.area }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">店舗エリア：</td>
+                            <td class="data store_area">{{ store.store_area }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">最寄り駅：</td>
+                            <td class="data station">{{ store.station }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">営業時間：</td>
+                            <td class="data time">{{ store.time }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">コンセプト：</td>
+                            <td class="data concept">
+                                <p>
+                                    {% set list2 = store.concept.split(',') %}
+                                    {% for concept in list2 %}
+                                        <span class="concept_text"><i class="concept_icon bi bi-pin-fill"></i>{{ concept }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">年齢：</td>
+                            <td class="data age">{{ store.age }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">女子給：</td>
+                            <td class="data salary"><textarea name="" id="" cols="25" rows="11">{{ store.salary }}</textarea></td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">指名料：</td>
+                            <td class="data nomination">{{ store.nomination }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">保証幅：</td>
+                            <td class="data guarantee">{{ store.guarantee }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">顔出し：</td>
+                            <td class="data face">{{ store.face }}</td>
+                        </tr>
+                        <var><tr class="table_data">
+                            <td class="data_title">寮費：</td>
+                            <td class="data dormitory">{{ store.dormitory }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">雑費：</td>
+                            <td class="data sundry">{{ store.sundry }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">SB：</td>
+                            <td class="data back">{{ store.back }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">備考：</td>
+                            <td class="data remark">{{ store.remark }}</td>
+                        </tr>
+                        <tr class="table_data">
+                            <td class="data_title">特徴：</td>
+                            <td class="data store_tag">
+                                {% set list3 = store.store_tag.split(',') %}
+                                <p>
+                                    {% for store_tag in list3 %}
+                                        <span class="tag_text"><i class="tag_icon bi bi-tag-fill"></i>{{ store_tag }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="store_control">
+                    {% if current_user.id == 1 %}
+                    <span class="control_icon destroy_icon bi bi-trash-fill"></span>
+                    <a href="/{{store.id}}/update"><span class="control_icon update_icon bi bi-pencil-square"></span></a>
+                    {% endif %}
+                </div>
+                <a href="/{{store.id}}/capsule" class="return_link">検索ページへジャンプ</a>
+            </div>
+        </div>
+
+        {% else %}
+
         <div class="create">
             <img src="{{url_for('static', filename='outputs/storeParam(3).jpg')}}" alt="" class="create_img">
             <div class="create_wrapper">
@@ -370,6 +496,7 @@
             </div>
         </div>
 
+        {% endif %}
 
     {% endif %}
 

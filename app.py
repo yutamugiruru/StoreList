@@ -1,4 +1,3 @@
-'''
 #!/home/xs026388/miniconda3/bin/python3
 # -- coding: utf-8 --
 import io
@@ -6,7 +5,7 @@ import sys
 import cgitb
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 cgitb.enable()
-'''
+
 from flask import Flask, session, app
 from flask import render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -17,6 +16,7 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from werkzeug.utils import secure_filename
 from datetime import datetime, timedelta
+from PIL import Image
 import pytz
 
 #app 
@@ -284,9 +284,10 @@ def create():
             if not pic:
                 img = 'img/storeLink.jpg'
             else:
-                filedir = 'static/'
-                filename = 'img/' + secure_filename(pic.filename)
-                filepath = filedir + filename
+                top_dir = 'static/'
+                pic_img = secure_filename(pic.filename)
+                filename = 'img/'+ pic_img
+                filepath = top_dir + filename
                 pic.save(filepath)
                 img = filename
                 
@@ -345,7 +346,7 @@ def update(id):
             try:
                 db.session.commit()
                         
-                return render_template('auth/detail.html', store = storeList)
+                return render_template('auth/update.html', store = storeList)
             except:
                 return render_template('auth/except.html')
 
@@ -377,9 +378,10 @@ def img(id):
 
             try:
 
-                filedir = 'static/'
-                filename = 'img/' + secure_filename(pic.filename)
-                filepath = filedir + filename
+                top_dir = 'static/'
+                pic_img = secure_filename(pic.filename)
+                filename = 'img/'+ pic_img
+                filepath = top_dir + filename
                 pic.save(filepath)
                 img = filename
 
@@ -394,6 +396,21 @@ def img(id):
 
     else:
         return render_template('auth/img.html', store = storeList)
+
+#img capsule
+@app.route("/<int:id>/capsule")
+@login_required
+def capsule(id):
+    storeList = Store.query.get(id)
+
+    before_img = storeList.store_img
+    path = "static/" + before_img
+    after_img = Image.open(path)
+    resize_img = after_img.resize((100,80))
+    img = resize_img
+    img.save(path)
+    
+    return redirect(url_for('search'))
     
 #store destroy
 @app.route("/<int:id>/destroy", methods=['GET'])

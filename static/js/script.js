@@ -1,9 +1,17 @@
 $(function () {
+    
     //burgerbtn
     $(function(){
+        var click = true
         $('.burger_btn').on('click',function(){
-            $('.burger_btn').toggleClass('close');
-            $('.header_modal').slideToggle(500);
+            if(click) {
+                click = false;
+                setTimeout(function() {
+                    click = true;
+                }, 500);
+                $('.burger_btn').toggleClass('close');
+                $('.header_modal').slideToggle(500);
+            };
         });
     });
 

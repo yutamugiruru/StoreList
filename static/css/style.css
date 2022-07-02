@@ -112,7 +112,7 @@ header .burger_btn.close .bar_bottom {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   /* edit Page */
 }
 .login .login_img {
@@ -165,7 +165,7 @@ header .burger_btn.close .bar_bottom {
 .login .login_wrapper .err_msg {
   text-align: right;
   font-size: 1.5rem;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 @-webkit-keyframes FontSuccess {
   0% {
@@ -280,7 +280,7 @@ header .burger_btn.close .bar_bottom {
   text-align: left;
   font-size: 1.5rem;
   font-family: "Zen Kaku Gothic New", sans-serif;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 .login .edit_wrapper h2 {
   text-align: center;
@@ -321,7 +321,7 @@ header .burger_btn.close .bar_bottom {
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   /* search post(err) */
   /* search post(not err) */
 }
@@ -408,7 +408,7 @@ header .burger_btn.close .bar_bottom {
   padding-bottom: 30px;
   font-size: 2rem;
   font-family: "Zen Kaku Gothic New", sans-serif;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 .search .err_wrapper .err_link {
   display: block;
@@ -535,21 +535,21 @@ header .burger_btn.close .bar_bottom {
 }
 .search .search_post .article_items .store .store_info .industry .industry_icon {
   font-size: 1.2rem;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 .search .search_post .article_items .store .store_info .pref {
   margin-bottom: 3px;
   padding: 0;
   font-size: 1.1rem;
   font-family: "Zen Kaku Gothic New", sans-serif;
-  color: white;
+  color: rgb(255, 255, 255);
   line-height: 1.4;
 }
 .search .search_post .article_items .store .store_info .pref .pref_text {
   white-space: nowrap;
   margin-right: 3px;
   padding: 0 3px;
-  background-color: #333333;
+  background-color: rgb(51, 51, 51);
   border-radius: 5px;
 }
 .search .search_post .article_items .store .store_info .tag {
@@ -570,7 +570,7 @@ header .burger_btn.close .bar_bottom {
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
 }
 .create .create_img {
   position: absolute;
@@ -717,7 +717,7 @@ header .burger_btn.close .bar_bottom {
 .create .create_wrapper .store_data .pref p .pref_text .pref_icon {
   margin-right: 3px;
   font-size: 1rem;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 .create .create_wrapper .store_data .concept p {
   margin: 0;
@@ -730,7 +730,7 @@ header .burger_btn.close .bar_bottom {
 .create .create_wrapper .store_data .concept p .concept_text .concept_icon {
   margin-right: 3px;
   font-size: 1rem;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 .create .create_wrapper .store_data .store_tag p {
   margin: 0;
@@ -743,7 +743,7 @@ header .burger_btn.close .bar_bottom {
 .create .create_wrapper .store_data .store_tag p .tag_text .tag_icon {
   margin-right: 3px;
   font-size: 1rem;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 .create .create_wrapper .store_control {
   width: 150px;
@@ -813,7 +813,7 @@ header .burger_btn.close .bar_bottom {
   padding-top: 20px;
   font-size: 2rem;
   font-family: "Zen Kaku Gothic New", sans-serif;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
 }
 
 /* judge_modal */
@@ -870,7 +870,7 @@ header .burger_btn.close .bar_bottom {
 footer {
   position: relative;
   width: 100%;
-  background-color: #0a0a0a;
+  background-color: rgb(10, 10, 10);
   z-index: 1;
 }
 footer .footer_title {
@@ -917,7 +917,7 @@ footer .variation .variation_link .v_bi {
   top: 0;
   right: 0;
   font-size: 1.6rem;
-  color: #7d0000;
+  color: rgb(125, 0, 0);
   z-index: 2;
 }
 footer .contact {
@@ -970,7 +970,7 @@ footer .footer_contents .footer_items {
   margin-bottom: 30px;
   padding-left: 10px;
   line-height: 2;
-  border-left: 1px solid white;
+  border-left: 1px solid rgb(255, 255, 255);
 }
 footer .footer_contents .footer_items a {
   display: flex;
@@ -1010,7 +1010,7 @@ footer .copy_right {
   height: 40px;
   padding-top: 5px;
   padding-right: 10px;
-  background-color: black;
+  background-color: rgb(0, 0, 0);
 }
 footer .copy_right p {
   text-align: right;
